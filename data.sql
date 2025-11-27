@@ -118,14 +118,84 @@ JOIN customers c ON o.email = c.email;
 --      pour référencer les bons IDs (order_id, product_id) selon votre modèle.
 -- ===========================================
 
-INSERT INTO /* TODO: ex: order_items(order_id, product_id, quantity, unit_price) */ VALUES
-  ('alice.martin@mail.com',    '2024-03-01 10:20', 'Casque Bluetooth X1000',         1,  79.99),
-  ('alice.martin@mail.com',    '2024-03-01 10:20', 'Puzzle 1000 pièces "Montagne"', 2,  12.99),
-  ('bob.dupont@mail.com',      '2024-03-04 09:12', 'Tapis de Yoga Comfort+',        1,  19.99),
-  ('chloe.bernard@mail.com',   '2024-03-08 15:02', 'Bouilloire Inox 1.7L',          1,  29.99),
-  ('chloe.bernard@mail.com',   '2024-03-08 15:02', 'Gel douche FreshEnergy',        3,   4.99),
-  ('david.robert@mail.com',    '2024-03-09 11:45', 'Haltères 5kg (paire)',          1,  24.99),
-  ('emma.leroy@mail.com',      '2024-03-10 08:10', 'Crème hydratante BioSkin',      2,  15.90),
-  ('julien.fontaine@mail.com', '2024-03-18 14:22', 'Jeu de société "Galaxy Quest"', 1,  29.90),
-  ('katia.garnier@mail.com',   '2024-03-20 18:00', 'Souris Gamer Pro RGB',          1,  49.90),
-  ('katia.garnier@mail.com',   '2024-03-20 18:00', 'Gel douche FreshEnergy',        2,   4.99);
+INSERT INTO order_items(order_id, product_id, quantity, unit_price) VALUES
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'alice.martin@mail.com'
+     AND o.order_date = '2024-03-01 10:20'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Casque Bluetooth X1000'),
+  1, 79.99
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'alice.martin@mail.com'
+     AND o.order_date = '2024-03-01 10:20'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Puzzle 1000 pièces "Montagne"'),
+  2, 12.99
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'bob.dupont@mail.com'
+     AND o.order_date = '2024-03-04 09:12'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Tapis de Yoga Comfort+'),
+  1, 19.99
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'chloe.bernard@mail.com'
+     AND o.order_date = '2024-03-08 15:02'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Bouilloire Inox 1.7L'),
+  1, 29.99
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'chloe.bernard@mail.com'
+     AND o.order_date = '2024-03-08 15:02'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Gel douche FreshEnergy'),
+  3, 4.99
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'david.robert@mail.com'
+     AND o.order_date = '2024-03-09 11:45'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Haltères 5kg (paire)'),
+  1, 24.99
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'emma.leroy@mail.com'
+     AND o.order_date = '2024-03-10 08:10'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Crème hydratante BioSkin'),
+  2, 15.90
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'julien.fontaine@mail.com'
+     AND o.order_date = '2024-03-18 14:22'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Jeu de société "Galaxy Quest"'),
+  1, 29.90
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'katia.garnier@mail.com'
+     AND o.order_date = '2024-03-20 18:00'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Souris Gamer Pro RGB'),
+  1, 49.90
+),
+(
+  (SELECT o.order_id FROM orders o 
+   JOIN customers c ON c.id = o.id_customer
+   WHERE c.email = 'katia.garnier@mail.com'
+     AND o.order_date = '2024-03-20 18:00'),
+  (SELECT p.id FROM products p WHERE p.product_name = 'Gel douche FreshEnergy'),
+  2, 4.99
+);
